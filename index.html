@@ -8,17 +8,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0f1117;
-      --surface:   #1a1d27;
-      --border:    #2a2d3a;
-      --accent:    #6c63ff;
-      --accent2:   #a78bfa;
-      --text:      #e8e8f0;
-      --muted:     #7b7d8e;
-      --success:   #22c55e;
-      --error:     #ef4444;
-      --radius:    10px;
-      --font:      'Inter', system-ui, sans-serif;
+      --bg:      #0f1117;
+      --surface: #1a1d27;
+      --border:  #2a2d3a;
+      --accent:  #6c63ff;
+      --accent2: #a78bfa;
+      --text:    #e8e8f0;
+      --muted:   #7b7d8e;
+      --success: #22c55e;
+      --error:   #ef4444;
+      --radius:  10px;
+      --font:    'Inter', system-ui, sans-serif;
     }
 
     html, body { min-height: 100vh; background: var(--bg); color: var(--text); font-family: var(--font); }
@@ -31,6 +31,7 @@
       padding: 48px 20px 80px;
     }
 
+    /* ── Header ── */
     .header { text-align: center; margin-bottom: 40px; }
 
     .header-badge {
@@ -50,7 +51,6 @@
       font-size: clamp(24px, 5vw, 36px);
       font-weight: 800;
       letter-spacing: -0.5px;
-      color: var(--text);
       line-height: 1.15;
     }
 
@@ -63,6 +63,7 @@
 
     .header p { margin-top: 10px; font-size: 14px; color: var(--muted); }
 
+    /* ── Card ── */
     .card {
       width: 100%;
       max-width: 640px;
@@ -72,7 +73,112 @@
       padding: 32px;
     }
 
-    /* ── Fixed info row (Base + Fonte share same style) ── */
+    /* ── Field wrapper ── */
+    .fields { display: flex; flex-direction: column; gap: 24px; }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-label .param {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: var(--accent2);
+      background: rgba(108,99,255,0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* ── Toggle button group ── */
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .toggle-btn:hover:not(.active) {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    .toggle-btn.active {
+      background: rgba(108,99,255,0.12);
+      border-color: var(--accent);
+      color: var(--accent2);
+      font-weight: 700;
+    }
+
+    /* ── Text input ── */
+    .field input {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 14px;
+      font-family: var(--font);
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field input:focus { border-color: var(--accent); }
+    .field input::placeholder { color: var(--muted); opacity: 0.6; }
+
+    /* Video ID feedback */
+    .video-id-preview {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .video-id-preview.visible { display: flex; }
+
+    .video-id-badge {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--success);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+    }
+
+    .video-id-label { color: var(--muted); font-size: 11px; }
+
+    .video-id-error { display: none; font-size: 11px; color: var(--error); }
+    .video-id-error.visible { display: block; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+    /* ── Fixed rows (Base + Fonte) ── */
+    .fixed-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+
     .fixed-row {
       display: flex;
       align-items: center;
@@ -82,8 +188,6 @@
       border-radius: var(--radius);
       padding: 10px 14px;
     }
-
-    .fixed-row + .fixed-row { margin-top: 8px; }
 
     .fixed-row-label {
       font-size: 10px;
@@ -117,97 +221,7 @@
       white-space: nowrap;
     }
 
-    .fields { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
-
-    .field { display: flex; flex-direction: column; gap: 6px; }
-
-    .field label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .field label .param {
-      font-family: 'Courier New', monospace;
-      font-size: 10px;
-      color: var(--accent2);
-      background: rgba(108,99,255,0.1);
-      padding: 1px 6px;
-      border-radius: 4px;
-    }
-
-    .field input, .field select {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-size: 14px;
-      font-family: var(--font);
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color 0.15s;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .field input:focus, .field select:focus { border-color: var(--accent); }
-    .field input::placeholder { color: var(--muted); opacity: 0.6; }
-
-    .video-id-preview {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      font-size: 12px;
-    }
-
-    .video-id-preview.visible { display: flex; }
-
-    .video-id-badge {
-      background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.3);
-      color: var(--success);
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 6px;
-    }
-
-    .video-id-label { color: var(--muted); font-size: 11px; }
-
-    .video-id-error {
-      display: none;
-      font-size: 11px;
-      color: var(--error);
-      margin-top: 4px;
-    }
-
-    .video-id-error.visible { display: block; }
-
-    .select-wrap { position: relative; }
-
-    .select-wrap::after {
-      content: '▾';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      pointer-events: none;
-      font-size: 12px;
-    }
-
-    .select-wrap select option { background: var(--surface); color: var(--text); }
-
-    .divider { height: 1px; background: var(--border); margin: 24px 0; }
-
+    /* ── Output ── */
     .output-label {
       font-size: 11px;
       font-weight: 700;
@@ -231,16 +245,13 @@
       transition: border-color 0.2s;
     }
 
-    .output-box.has-params {
-      color: var(--text);
-      border-color: rgba(108,99,255,0.3);
-    }
-
-    .output-box .url-base    { color: var(--muted); }
+    .output-box.has-params { border-color: rgba(108,99,255,0.3); }
+    .output-box .url-base      { color: var(--muted); }
     .output-box .url-param-key { color: var(--accent2); }
     .output-box .url-param-val { color: var(--success); }
-    .output-box .url-sep     { color: var(--accent); }
+    .output-box .url-sep       { color: var(--accent); }
 
+    /* ── Buttons ── */
     .btn-copy {
       margin-top: 14px;
       width: 100%;
@@ -253,7 +264,6 @@
       border: none;
       border-radius: var(--radius);
       cursor: pointer;
-      letter-spacing: 0.3px;
       transition: background 0.15s, transform 0.1s;
       display: flex;
       align-items: center;
@@ -282,6 +292,7 @@
 
     .btn-clear:hover { color: var(--text); border-color: var(--muted); }
 
+    /* ── Toast ── */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -309,30 +320,48 @@
   <div class="header">
     <div class="header-badge">Futebol Máximo</div>
     <h1>Gerador de <span>Links UTM</span></h1>
-    <p>Cole o link do vídeo, escolha o formato e copie o link rastreado</p>
+    <p>Selecione o formato, destino e cole o link do vídeo</p>
   </div>
 
   <div class="card">
 
-    <!-- Base URL -->
-    <div class="fixed-row">
-      <span class="fixed-row-label">Base</span>
-      <span class="fixed-row-value">https://9fantasy.app/app</span>
+    <!-- Fixed info rows (hidden, logic kept in JS) -->
+    <div class="fixed-rows" style="display:none;">
+      <div class="fixed-row">
+        <span class="fixed-row-label">Base</span>
+        <span class="fixed-row-value" id="baseDisplay">https://9fantasy.app/app</span>
+      </div>
+      <div class="fixed-row">
+        <span class="fixed-row-label">Fonte</span>
+        <span class="fixed-row-value">utm_medium=futebolmaximo</span>
+        <span class="fixed-badge">Fixo</span>
+      </div>
     </div>
 
-    <!-- Fonte (utm_medium) — fixed, same visual style as Base -->
-    <div class="fixed-row">
-      <span class="fixed-row-label">Fonte</span>
-      <span class="fixed-row-value">utm_medium=futebolmaximo</span>
-      <span class="fixed-badge">Fixo</span>
-    </div>
-
-    <!-- Input fields -->
+    <!-- Fields -->
     <div class="fields">
 
-      <!-- ORIGEM: paste YouTube link → extract video ID -->
+      <!-- 1. FORMATO (utm_campaign) -->
       <div class="field">
-        <label>Origem <span class="param">utm_source</span></label>
+        <div class="field-label">Formato <span class="param">utm_campaign</span></div>
+        <div class="toggle-group">
+          <button class="toggle-btn" id="btn-longform" onclick="setFormato('longform')">📹 Long Form</button>
+          <button class="toggle-btn" id="btn-shorts"   onclick="setFormato('shorts')">⚡ Shorts</button>
+        </div>
+      </div>
+
+      <!-- 2. DESTINO (altera link base) -->
+      <div class="field">
+        <div class="field-label">Destino</div>
+        <div class="toggle-group">
+          <button class="toggle-btn" id="btn-app" onclick="setDestino('app')">📱 App</button>
+          <button class="toggle-btn" id="btn-web" onclick="setDestino('web')">🌐 Web</button>
+        </div>
+      </div>
+
+      <!-- 3. LINK DO VÍDEO (utm_source) -->
+      <div class="field">
+        <div class="field-label">Link do Vídeo <span class="param">utm_source</span></div>
         <input
           id="videoLinkInput"
           type="text"
@@ -345,18 +374,6 @@
         </div>
         <div class="video-id-error" id="videoIdError">
           Link inválido — cole um link do YouTube válido
-        </div>
-      </div>
-
-      <!-- FORMATO: dropdown longform / shorts -->
-      <div class="field">
-        <label>Formato <span class="param">utm_campaign</span></label>
-        <div class="select-wrap">
-          <select id="utm_campaign" onchange="update()">
-            <option value="">— Selecione o formato —</option>
-            <option value="longform">Long Form</option>
-            <option value="shorts">Shorts</option>
-          </select>
         </div>
       </div>
 
@@ -387,9 +404,36 @@
 <div class="toast" id="toast">✓ Link copiado!</div>
 
 <script>
-  const BASE = 'https://9fantasy.app/app';
-  let currentVideoId = '';
+  const BASES = {
+    app: 'https://9fantasy.app/app',
+    web: 'https://9fantasy.app/'
+  };
 
+  let selectedFormato  = '';   // 'longform' | 'shorts'
+  let selectedDestino  = 'app'; // 'app' | 'web'
+  let currentVideoId   = '';
+
+  // ── Init ──
+  setDestino('app');
+
+  // ── Formato ──
+  function setFormato(val) {
+    selectedFormato = val;
+    document.getElementById('btn-longform').classList.toggle('active', val === 'longform');
+    document.getElementById('btn-shorts').classList.toggle('active',   val === 'shorts');
+    update();
+  }
+
+  // ── Destino ──
+  function setDestino(val) {
+    selectedDestino = val;
+    document.getElementById('btn-app').classList.toggle('active', val === 'app');
+    document.getElementById('btn-web').classList.toggle('active', val === 'web');
+    document.getElementById('baseDisplay').textContent = BASES[val];
+    update();
+  }
+
+  // ── Video ID extraction ──
   function extractVideoId(url) {
     url = url.trim();
     if (!url) return null;
@@ -434,32 +478,31 @@
     update();
   }
 
-  // Build the final URL:
-  // source=youtube&utm_source=ID&utm_medium=futebolmaximo&utm_campaign=longform
+  // ── Build URL ──
   function buildUrl() {
-    const campaign = document.getElementById('utm_campaign').value;
-    if (!currentVideoId && !campaign) return '';
-
+    const base = BASES[selectedDestino];
     const params = [
       ['source',        'youtube'],
       ['utm_source',    currentVideoId],
       ['utm_medium',    'futebolmaximo'],
     ];
-    if (campaign) params.push(['utm_campaign', campaign]);
+    if (selectedFormato) params.push(['utm_campaign', selectedFormato]);
 
     const qs = params
       .filter(([, v]) => v)
       .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
       .join('&');
 
-    return `${BASE}?${qs}`;
+    return qs ? `${base}?${qs}` : '';
   }
 
+  // ── Render output ──
   function renderOutput() {
-    const box      = document.getElementById('outputBox');
-    const btn      = document.getElementById('btnCopy');
-    const campaign = document.getElementById('utm_campaign').value;
-    const hasContent = currentVideoId || campaign;
+    const box = document.getElementById('outputBox');
+    const btn = document.getElementById('btnCopy');
+    const base = BASES[selectedDestino];
+
+    const hasContent = currentVideoId || selectedFormato;
 
     if (!hasContent) {
       box.className = 'output-box';
@@ -473,7 +516,7 @@
       ['utm_source', currentVideoId],
       ['utm_medium', 'futebolmaximo'],
     ];
-    if (campaign) params.push(['utm_campaign', campaign]);
+    if (selectedFormato) params.push(['utm_campaign', selectedFormato]);
 
     box.className = 'output-box has-params';
     const parts = params
@@ -483,7 +526,7 @@
         return `<span class="url-sep">${sep}</span><span class="url-param-key">${k}</span><span class="url-sep">=</span><span class="url-param-val">${encodeURIComponent(v)}</span>`;
       }).join('');
 
-    box.innerHTML = `<span class="url-base">${BASE}</span>${parts}`;
+    box.innerHTML = `<span class="url-base">${base}</span>${parts}`;
     btn.disabled = false;
   }
 
@@ -496,6 +539,7 @@
     }
   }
 
+  // ── Copy ──
   function copyLink() {
     const url = buildUrl();
     if (!url) return;
@@ -509,10 +553,17 @@
     });
   }
 
+  // ── Clear ──
   function clearAll() {
+    selectedFormato = '';
+    selectedDestino = 'app';
+    currentVideoId  = '';
+    document.getElementById('btn-longform').classList.remove('active');
+    document.getElementById('btn-shorts').classList.remove('active');
+    document.getElementById('btn-app').classList.add('active');
+    document.getElementById('btn-web').classList.remove('active');
+    document.getElementById('baseDisplay').textContent = BASES['app'];
     document.getElementById('videoLinkInput').value = '';
-    document.getElementById('utm_campaign').value = '';
-    currentVideoId = '';
     document.getElementById('videoIdPreview').classList.remove('visible');
     document.getElementById('videoIdError').classList.remove('visible');
     update();
